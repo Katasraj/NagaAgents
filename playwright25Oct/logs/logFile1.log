@@ -1,0 +1,7 @@
+11/15/26 10:03:53 AM: sausedemo: INFO: Starting test_scenario1
+11/15/26 10:03:54 AM: sausedemo: INFO: Opened saucedemo.com
+11/15/26 10:03:57 AM: sausedemo: INFO: Logged in as standard_user
+11/15/26 10:03:59 AM: sausedemo: INFO: Added first product to cart
+11/15/26 10:04:00 AM: sausedemo: INFO: Proceeded to checkout
+11/15/26 10:04:04 AM: sausedemo: INFO: Entered checkout information
+11/15/26 10:04:11 AM: sausedemo: INFO: Logged out - test passed
