@@ -1,0 +1,128 @@
+https://github.com/KSRAJUSIR
+
+---------------------------------------------------------------------------------------------------------------------
+ git push -u origin main what is -u here
+
+-u is short for --set-upstream. It links your local main branch to origin/main on GitHub.
+
+After you've run it once, you can use plain git push and git pull on that branch without naming the remote and branch each time. Git also uses the link in git status to tell you things like "Your branch is ahead of 'origin/main' by 2 commits."
+
+You only need -u the first time you push a branch. After that, git push is enough. It does no harm to repeat it. If you ever want to check the link, git branch -vv shows which remote branch each local branch tracks.
+
+---------------------------------------------------------------------------------------------------------------------
+
+def test_has_title(page:Page)
+
+Where does page come from? You never create it yourself. You use pytest with the pytest-playwright plugin.
+When pytest sees a test function with a parameter named page, the plugin does this for you:
+
+1. It launches a browser.
+2. It opens a fresh tab.
+3. It passes that tab into your test as page.
+4. It closes everything after the test.
+
+The parameter has to be named exactly page, because pytest matches it by name. This mechanism is called a fixture.
+page is the pytest-playwright plugin registers.
+
+┌───────────────┬─────────────────────┬─────────────────────────────────┐
+│     Part      │       Used by       │             Purpose             │
+├───────────────┼─────────────────────┼─────────────────────────────────┤
+│ page (name)   │ pytest              │ Decides which fixture to inject │
+├───────────────┼─────────────────────┼─────────────────────────────────┤
+│ : Page (type) │ You and your editor │ Autocomplete and documentation  │
+└───────────────┴─────────────────────┴─────────────────────────────────┘
+
+---------------------------------------------------------------------------------------------------------------------
+Id = “searchBox” , #id —> css for that element
+class= “classname” , .classname —> for that element
+placeholder= “enter name” , [placeholder=‘value’]
+.classname[attribute=‘value’]
+
+
+All locators in playwright by default work with elements in shadow DOM
+
+
+Hard assertion
+
+await expect(locator).toHaveText('Welcome');
+await expect(page).toHaveURL(/dashboard/);
+await expect(locator).not.toBeVisible();   // negated
+
+The test stops at the first failure.
+
+Soft assertion
+
+await expect.soft(locator).toHaveText('Welcome');
+await expect.soft(page).toHaveURL(/dashboard/);
+await expect.soft(locator).not.toBeVisible();   // negated
+
+The test continues after a failure and is marked failed at the end.
+---------------------------------------------------------------------------------------------------------------------
+
+WebKit is the browser engine that powers Apple's Safari. It's the part of the browser that renders web pages
+(HTML, CSS, JavaScript).
+
+In your line, addopts = --headed --browser webkit looks like a pytest config (probably pytest-playwright):
+
+- addopts makes pytest add these options to every run automatically.
+- --headed runs the browser with a visible window. The default is headless, with no window.
+- --browser webkit runs your tests in Playwright's WebKit build. That's a close stand-in for Safari. The other choices
+    are chromium (Chrome/Edge) and firefox.
+
+Why it matters for QA: Safari renders some things differently from Chrome. If your screenshot doesn't match what you
+expected, the browser could be the cause. A baseline screenshot taken in Chromium will often differ from one taken
+in WebKit because of font rendering, spacing, and similar details.
+
+Playwright's WebKit isn't the real Safari app. It's close, but not identical. It also runs on Windows and Linux,
+which ties back to your earlier "updates for Windows" question.
+
+---------------------------------------------------------------------------------------------------------------------
+To execute playwright test on mobile/iPAD emulator
+pytest test_Example2.py::test_example2 --device="iPhone 15 Pro"
+pytest test_Example2.py::test_example2 --device="iPad Pro 11"
+---------------------------------------------------------------------------------------------------------------------
+
+In Python, a directory is any plain folder. A package is a folder that Python can import code from.
+
+Directory
+
+- Any normal folder, such as screenshots/, reports/, test_data/ or videos/.
+- It usually holds non-code files: JSON, CSV, images, logs, reports.
+- You can't reliably import from it.
+
+Package
+
+- A folder that contains an __init__.py file, which can be empty.
+- It holds Python modules (.py files) that you import elsewhere.
+- Example: from pages.login_page import LoginPage.
+- In PyCharm, "New → Python Package" creates the folder and __init__.py together. "New → Directory" creates only 
+the folder.
+
+Typical Playwright project layout
+
+pw_project/
+├── pages/              # PACKAGE (has __init__.py) – Page Object classes
+│   ├── __init__.py
+│   └── login_page.py
+├── tests/              # PACKAGE – test files
+│   ├── __init__.py
+│   └── test_login.py
+├── utils/              # PACKAGE – helpers
+│   ├── __init__.py
+│   └── helpers.py
+├── test_data/          # DIRECTORY – users.json, data.csv
+├── reports/            # DIRECTORY – HTML reports
+├── screenshots/        # DIRECTORY – failure screenshots
+├── conftest.py
+└── pytest.ini
+
+Rule of thumb
+
+- If it holds Python code you'll import, make it a package.
+- If it holds data or output files, make it a directory.
+
+Since Python 3.3, folders without __init__.py can still be imported as "namespace packages". Pytest and tooling 
+can behave unpredictably with them, though. Adding __init__.py is the safer habit, especially in tests/, 
+where it avoids duplicate-filename conflicts.
+
+---------------------------------------------------------------------------------------------------------------------
