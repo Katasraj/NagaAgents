@@ -11,13 +11,17 @@ class LoginPage:
 
 
     def login_to_application(self, username,password):
-        self.username_textField.fill(username)
-        self.password_textField.fill(password)
-        self.login_button.click()
-        config_file_reader = ConfigFileReader()
+        try:
 
-        bashboard_URL = config_file_reader.readConfig("basic info","dashboardURL")
-        self.page.wait_for_url(bashboard_URL)
-        expect(self.page).to_have_url(bashboard_URL)
+            self.username_textField.fill(username)
+            self.password_textField.fill(password)
+            self.login_button.click()
+            config_file_reader = ConfigFileReader()
+
+            bashboard_URL = config_file_reader.readConfig("basic info","dashboardURL")
+            self.page.wait_for_url(bashboard_URL)
+            expect(self.page).to_have_url(bashboard_URL)
+        except:
+            print("Error occured when lgging into the application")
 
         

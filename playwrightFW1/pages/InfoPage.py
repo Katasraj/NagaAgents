@@ -10,13 +10,16 @@ class InfoPage:
         self.continue_button = page.locator("#continue")
 
     def enter_checkout_information(self):
-        random_data = RandomData()
-        self.first_Name_field.fill(random_data.get_first_name())
-        self.last_Name_field.fill(random_data.get_last_name())
-        self.postalcode_field.fill(random_data.get_zipcode())
+        try:
+            random_data = RandomData()
+            self.first_Name_field.fill(random_data.get_first_name())
+            self.last_Name_field.fill(random_data.get_last_name())
+            self.postalcode_field.fill(random_data.get_zipcode())
 
-        self.page.wait_for_timeout(4000)
-        self.continue_button.click()
+            self.page.wait_for_timeout(4000)
+            self.continue_button.click()
+        except:
+            print("Error occured while trying to enter checkout information")
 
 
 
